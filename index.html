@@ -371,28 +371,28 @@ kubectl get nodes</code>
     <script>
       // theme toggle logic now runs after DOM is ready
       const body = document.body;
-      const toggleBtn = document.getElementById('toggle-btn');
+      const toggleBtn = document.getElementById("toggle-btn");
 
       function updateToggleText() {
-        if (body.classList.contains('dark')) {
-          toggleBtn.textContent = 'Light mode';
+        if (body.classList.contains("dark")) {
+          toggleBtn.textContent = "Light mode";
         } else {
-          toggleBtn.textContent = 'Dark mode';
+          toggleBtn.textContent = "Dark mode";
         }
       }
 
       // initialize based on stored preference
-      if (localStorage.getItem('theme') === 'dark') {
-        body.classList.add('dark');
+      if (localStorage.getItem("theme") === "dark") {
+        body.classList.add("dark");
       }
       updateToggleText();
 
-      toggleBtn.addEventListener('click', () => {
-        body.classList.toggle('dark');
-        if (body.classList.contains('dark')) {
-          localStorage.setItem('theme', 'dark');
+      toggleBtn.addEventListener("click", () => {
+        body.classList.toggle("dark");
+        if (body.classList.contains("dark")) {
+          localStorage.setItem("theme", "dark");
         } else {
-          localStorage.setItem('theme', 'light');
+          localStorage.setItem("theme", "light");
         }
         updateToggleText();
       });
