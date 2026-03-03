@@ -6,6 +6,18 @@
     <title>Complete GitLab CI + Minikube Documentation</title>
     <style>
       :root {
+        /* LIGHT MODE DEFAULT */
+        --bg: #f4f6fb;
+        --card: #ffffff;
+        --text: #0f172a;
+        --muted: #5b6475;
+        --accent: #2563eb;
+        --border: #e2e8f0;
+        --code-bg: #f1f5f9;
+      }
+
+      body.dark {
+        /* DARK MODE */
         --bg: #0b1020;
         --card: #121a2b;
         --text: #e8ecf3;
@@ -29,7 +41,7 @@
           Roboto,
           Arial,
           sans-serif;
-        background: linear-gradient(180deg, #0b1020 0%, #0d1426 100%);
+        background: var(--bg);
         color: var(--text);
         line-height: 1.6;
       }
@@ -100,6 +112,21 @@
       .muted {
         color: var(--muted);
       }
+
+      .toggle-btn {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 6px 12px;
+        cursor: pointer;
+      }
+
+      footer {
+        text-align: center;
+        margin-top: 80px;
+        font-size: 10px;
+        color: rgba(128, 128, 128, 0.3);
+      }
     </style>
 
     <script>
@@ -113,6 +140,7 @@
   </head>
 
   <body>
+    <button id="toggle-btn" class="toggle-btn">Toggle theme</button>
     <main class="container">
       <section class="section">
         <h1>GitLab CI/CD + Minikube Complete Setup Guide</h1>
@@ -335,22 +363,39 @@ minikube start --driver=docker
 kubectl get nodes</code>
       </pre>
       </section>
-
-      <!-- FINAL ARCHITECTURE -->
-      <section class="section">
-        <h2>Final Architecture Flow</h2>
-        <pre><code>Developer Push
-      ↓
-GitLab CI
-      ↓
-GitLab Runner (shell)
-      ↓
-kubectl apply
-      ↓
-Minikube
-      ↓
-Deployment Success</code></pre>
-      </section>
+      <footer>
+        <p>By VK</p>
+      </footer>
     </main>
+
+    <script>
+      // theme toggle logic now runs after DOM is ready
+      const body = document.body;
+      const toggleBtn = document.getElementById('toggle-btn');
+
+      function updateToggleText() {
+        if (body.classList.contains('dark')) {
+          toggleBtn.textContent = 'Light mode';
+        } else {
+          toggleBtn.textContent = 'Dark mode';
+        }
+      }
+
+      // initialize based on stored preference
+      if (localStorage.getItem('theme') === 'dark') {
+        body.classList.add('dark');
+      }
+      updateToggleText();
+
+      toggleBtn.addEventListener('click', () => {
+        body.classList.toggle('dark');
+        if (body.classList.contains('dark')) {
+          localStorage.setItem('theme', 'dark');
+        } else {
+          localStorage.setItem('theme', 'light');
+        }
+        updateToggleText();
+      });
+    </script>
   </body>
 </html>
